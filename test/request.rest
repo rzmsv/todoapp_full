@@ -1,0 +1,22 @@
+GET http://localhost:3001/api/v1/todo/list
+
+###
+POST http://localhost:3001/api/v1/todo/create
+Content-Type: application/json
+
+{
+    "task":"amir",
+    "name": "dsa"
+}
+
+###
+PATCH http://localhost:3001/api/v1/todo/update/8
+Content-Type: application/json
+
+{
+    "task":"sims",
+    "name": "dsa"
+}
+
+###
+DELETE http://localhost:3001/api/v1/todo/delete/8

@@ -1,0 +1,56 @@
+version: '3.5'
+services:
+
+  # ------------------------------ dev database ------------------------------ #
+  dev-db:
+    image: postgres:14.1-alpine
+    restart: always 
+    container_name: postgres-todo
+    networks:
+      - todo-service
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: todo
+    ports:
+      - 5434:5432
+  
+  # ------------------------------ test database ----------------------------- #
+  test-db:
+    image: postgres:14.1-alpine
+    container_name: postgres-test-todo
+    networks:
+      - todo-service
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: todo
+    ports:
+      - 5435:5432
+
+  # --------------------------------- backend -------------------------------- #
+  todo:
+    container_name: todo
+    image: todo
+    build:
+      context: ./
+      target: debug
+    restart: always
+    command: npm run start:dev
+    env_file:
+      - ./.env
+    # depends_on:
+    #   - redis
+    #   - mysql
+    networks:
+      - todo-service
+    volumes:
+      - ./:/todo-service 
+    ports:
+      - 3001:3001
+
+networks:
+  todo-service:
+
+volumes:
+  db:
