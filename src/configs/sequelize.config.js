@@ -13,7 +13,7 @@ module.exports = {
     "username": appConfigs.DB.username,
     "password": appConfigs.DB.password,
     "database": appConfigs.DB.db,
-    "host": "localhost",
+    "host": appConfigs.DB.host,
     "dialect": appConfigs.DB.dialect,
     "port": appConfigs.DB.port
   }

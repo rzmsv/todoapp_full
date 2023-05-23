@@ -14,3 +14,4 @@ npx sequelize-cli migration:generate --name migration-skeleton
 npx sequelize-cli db:create {{dbname}}
 npx sequelize-cli db:migrate
 npx sequelize-cli db:seed:all
+

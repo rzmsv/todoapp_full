@@ -1,12 +1,24 @@
 const request = require("supertest")
-const server = require("./test-src/test.server")
+const app = require("./test-src/test.server")
+const {Todo} = require("../src/models")
 
+const task = {
+    task:"first task",
+}
+
+// beforeAll(async()=>{
+//     await Todo.destroy({
+//         where: {},
+//         truncate: true
+//       })
+// })
 afterAll(async()=>{
-   await server.close()
+    await app.close()
 })
 
 describe("App e2e test",()=>{
-    describe("Todo should pass",()=>{
-        it.todo("todo pass")
+    
+    test("Should create todo.",async()=>{
+        await request(app).get('/api/v1/todo/list').expect(200)
     })
 })

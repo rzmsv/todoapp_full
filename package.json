@@ -12,8 +12,7 @@
     "start:dev": "nodemon -L src/bin/www",
     "test:db:rm": "docker compose rm -f -s -v test-db",
     "test:db:up": "docker compose up test-db -d",
-    "test:db:restart": "npm run test:db:rm && npm run test:db:up && npm run seq:migrate",
-    "pretest:e2e": "npm run test:db:restart",
+    "test:db:restart": "npm run test:db:rm && npm run test:db:up ",
     "test:e2e": "jest --detectOpenHandles"
   },
   "author": "Reza Mousavi",

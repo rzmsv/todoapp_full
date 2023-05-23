@@ -31,12 +31,15 @@ module.exports = (sequelize, DataTypes) => {
     updatedAt: {
       allowNull: false,
       type: DataTypes.DATE
+    },
+    deletedAt: {
+      allowNull: true,
+      type: DataTypes.DATE
     }
   }, {
     sequelize,
-    paranoid: "false",
     modelName: 'Todo',
-    tableName: "todos",
+    tableName:"todos"
   });
   return Todo;
 };
