@@ -12,12 +12,7 @@ exports.TodoService = class{
         return todosList
     }
     async createTodo_service(){
-        console.log(5454)
-        try {
-            const newTodo = await Todo.create(this.data)
-        } catch (error) {
-            console.log(error)
-        }
+        const newTodo = await Todo.create(this.data)
         const daoResult = await dao.createTodoDAO(newTodo)
         return daoResult
     }

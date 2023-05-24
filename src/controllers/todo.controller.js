@@ -8,11 +8,10 @@ exports.TodoController = class{
     }
     static async createTodo_controler(req,res,next){
         const data = req.body
-        console.log(54646)
         const dtoResult = dto.createTodoDTO(data)
         const newTask = new service.TodoService(dtoResult)
         const result = await newTask.createTodo_service()
-        // BaseController.ok(res,result)
+        BaseController.ok(res,result)
     }
     static async updateTodo_controler(req,res,next){
         const {id} = req.params
