@@ -1,5 +1,6 @@
 require('../configs')
 const app = require("../index")
+const {User} = require("../models")
 
 let server = null
 if (appConfigs.APP_PROTOCOL === "http"){
@@ -16,6 +17,9 @@ if (appConfigs.APP_PROTOCOL === "http"){
 }
 
 const port = appConfigs.APP_PORT
+
+
+
 server.listen(port,()=>{
     console.log(`[+] server started at: ${appConfigs.APP_PROTOCOL}://${appConfigs.APP_HOST}:${port}`)
 })
