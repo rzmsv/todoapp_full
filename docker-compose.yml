@@ -3,8 +3,13 @@ services:
 
   # ------------------------------ dev database ------------------------------ #
   dev-db:
-    image: postgres:14.1-alpine
-    restart: always 
+    # for linux
+    # image: postgres:14.1-alpine 
+    # --------
+    # for windows
+    image: postgres:14.1
+    # --------
+    restart: always
     container_name: postgres-todo
     networks:
       - todo-service
@@ -14,10 +19,15 @@ services:
       POSTGRES_DB: todo
     ports:
       - 5434:5432
-  
+
   # ------------------------------ test database ----------------------------- #
   test-db:
-    image: postgres:14.1-alpine
+    # for linux
+    # image: postgres:14.1-alpine 
+    # --------
+    # for windows
+    image: postgres:14.1
+    # --------
     container_name: postgres-test-todo
     networks:
       - todo-service
@@ -42,12 +52,13 @@ services:
     networks:
       - todo-service
     volumes:
-      - ./:/todo-service 
+      - ./:/todo-service
     ports:
       - 3001:3001
 
 networks:
   todo-service:
+
 
 volumes:
   db:

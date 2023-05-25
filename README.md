@@ -13,6 +13,8 @@ I wrote this app for Part AI challenge.
 - Paas: Docker
 
 ***
+```* Notes: If you want run app on windows or linux please go to docker-compose and Dockerfile and change image *```
+***
 ## Running the development ENV
 1. Change ``.env.example`` to ``.env``
 2. Change NODE_ENV's value that in .env to development 
@@ -45,6 +47,11 @@ npm run seq:migrate # For first time #
 ```bash 
 npm run test
 ```
+## Helper 
+If you can not pull any image with docker compose up you can use below command and write in command line
+
+``` docker pull <image name>```
+
 ## Stay in touch
 - Author - [Reza Mousavi](https://www.linkedin.com/in/rzms/)
 

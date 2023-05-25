@@ -1,25 +1,34 @@
 require('../configs')
 const app = require("../index")
-const {User} = require("../models")
+const { User } = require("../models")
+const { hashPassword } = require('../utils/bcrypt.utils')
 
 let server = null
-if (appConfigs.APP_PROTOCOL === "http"){
+if (appConfigs.APP_PROTOCOL === "http") {
     const http = require("http")
     server = http.createServer(app)
-}else{
+} else {
     const https = require("https")
     server = https.createServer({
         key: "key",
         cert: "cert"
     },
-    app
+        app
     )
 }
 
 const port = appConfigs.APP_PORT
 
 
-
-server.listen(port,()=>{
+server.listen(port, async () => {
+    try {
+        let existUser = await User.findOne({ where: { email: "reza@gmail.com" } })
+        if (!existUser) {
+            const hash = await hashPassword("password")
+            await User.create({ email: "reza@gmail.com", password: hash })
+        }
+    } catch (error) {
+        console.log(error)
+    }
     console.log(`[+] server started at: ${appConfigs.APP_PROTOCOL}://${appConfigs.APP_HOST}:${port}`)
 })

@@ -1,10 +1,11 @@
-const {Router} = require("express")
+const { Router } = require("express")
 const router = Router()
 const controller = require("../../../controllers")
 const { asyncHandler } = require("../../../helper/asyncHandler.helper")
 
 /* -------------------------------- Auth Page ------------------------------- */
-router.post('/login',controller.TodoController.todoList_controller)
+/* ------------------------ prefix: api/v1/auth ----------------------- */
+router.post('/login', asyncHandler(controller.AuthController.login_controller))
 
 
 module.exports = router
