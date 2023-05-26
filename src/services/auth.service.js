@@ -1,14 +1,19 @@
-const { Todo } = require('../models')
+const { User } = require('../models')
 const errorResult = require("../messages/error.messages")
 const dao = require('../DAO')
+const { comparePassword } = require('../utils/bcrypt.utils')
+const { signToken } = require("../utils/jwt.utils")
 
 
 exports.AuthService = class {
     static async login_service(dto) {
-        const user = await Todo.findOne({ where: { email: dto.email } })
+        const user = await User.findOne({ where: { email: dto.email } })
         if (!user) {
-
+            errorResult.notFound("User not found!")
         }
-        return todosList
+        const compare = await comparePassword(dto.password, user.password)
+        if (!compare) throw errorResult.badRequest("Password wrong!")
+        const sign = await signToken(user.id)
+        return sign
     }
 }

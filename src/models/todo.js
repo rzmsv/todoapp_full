@@ -21,7 +21,11 @@ module.exports = (sequelize, DataTypes) => {
       primaryKey: true
     },
     task: {
-      type:DataTypes.STRING,
+      type: DataTypes.STRING,
+      allowNull: false
+    },
+    userId: {
+      type: DataTypes.INTEGER,
       allowNull: false
     },
     createdAt: {
@@ -39,7 +43,7 @@ module.exports = (sequelize, DataTypes) => {
   }, {
     sequelize,
     modelName: 'Todo',
-    tableName:"todos"
+    tableName: "todos"
   });
   return Todo;
 };

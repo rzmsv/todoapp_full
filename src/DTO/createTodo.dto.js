@@ -1,16 +1,17 @@
 const errorResult = require("../messages/error.messages")
 
 
-exports.createTodoDTO = (data)=>{
+exports.createTodoDTO = (data) => {
     var errorsList = []
-    if (!data.task){
+    if (!data.task) {
         errorsList.push("Insert your task")
     }
-    if (errorsList.length > 0){
+    if (errorsList.length > 0) {
         errorResult.badRequest(errorsList)
     }
     return {
-        task: data.task
+        task: data.task,
+        userId: data.userId
     }
 
 }

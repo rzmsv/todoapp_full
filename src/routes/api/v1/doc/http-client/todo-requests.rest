@@ -1,0 +1,26 @@
+GET http://localhost:3001/api/v1/todo/list
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNjg1MTE4NzY4fQ.7OCiGh4msK3HAqICtcbu7drAwSU6BUWGL_1hcIgNB1g
+
+###
+POST http://localhost:3001/api/v1/todo/create
+Content-Type: application/json
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNjg1MTE4NzY4fQ.7OCiGh4msK3HAqICtcbu7drAwSU6BUWGL_1hcIgNB1g
+
+{
+    "task":"new task",
+    "name": "dsa"
+}
+
+###
+PATCH http://localhost:3001/api/v1/todo/update/1
+Content-Type: application/json
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNjg1MTE4NzY4fQ.7OCiGh4msK3HAqICtcbu7drAwSU6BUWGL_1hcIgNB1g
+
+{
+    "task":"sims",
+    "name": "dsa"
+}
+
+###
+DELETE http://localhost:3001/api/v1/todo/delete/1
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNjg1MTE4NzY4fQ.7OCiGh4msK3HAqICtcbu7drAwSU6BUWGL_1hcIgNB1g
