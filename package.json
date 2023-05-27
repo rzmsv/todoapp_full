@@ -8,7 +8,7 @@
     "dev:db:up": "docker compose up -d dev-db",
     "dev:db:restart": "npm run dev:db:rm && npm run dev:db:up -d",
     "seq:migrate": "npx sequelize-cli db:migrate",
-    "start:dev:docker": "docker-compose up dev-db todo",
+    "start:dev:docker": "docker-compose up dev-db todo swagger-ui",
     "start:dev": "nodemon -L src/bin/www",
     "test:db:rm": "docker compose rm -f -s -v test-db",
     "test:db:up": "docker compose up test-db -d",
