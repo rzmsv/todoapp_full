@@ -8,7 +8,7 @@
     "dev:db:up": "docker compose up -d dev-db",
     "dev:db:restart": "npm run dev:db:rm && npm run dev:db:up -d",
     "seq:migrate": "npx sequelize-cli db:migrate",
-    "start:dev:docker": "docker-compose up dev-db todo swagger-ui",
+    "start:dev:docker": "docker-compose up dev-db todo",
     "start:dev": "nodemon -L src/bin/www",
     "test:db:rm": "docker compose rm -f -s -v test-db",
     "test:db:up": "docker compose up test-db -d",
@@ -26,10 +26,12 @@
     "jsonwebtoken": "^9.0.0",
     "pg": "^8.11.0",
     "pg-hstore": "^2.3.4",
+    "pm2": "^5.3.0",
     "sequelize": "^6.31.1"
   },
   "devDependencies": {
     "dotenv-cli": "^7.2.1",
+    "loadtest": "^5.2.0",
     "nodemon": "^2.0.22",
     "pactum": "^3.4.0",
     "sequelize-cli": "^6.6.0",
