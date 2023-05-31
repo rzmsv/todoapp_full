@@ -13,7 +13,7 @@ app.use(cors())
 
 
 /* --------------------------------- Swagger -------------------------------- */
-app.use("/api/v1/doc",swaggerUI.serve,swaggerUI.setup(SwaggerDoc.swaggerV1()))
+app.use("/api/v1/doc",swaggerUI.serve,swaggerUI.setup(SwaggerDoc.instance().swaggerV1()))
 /* --------------------------------- Routes --------------------------------- */
 app.use('/', routes)
 
