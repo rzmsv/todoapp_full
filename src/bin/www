@@ -55,3 +55,19 @@ if (cluster.isPrimary) {
     console.log(`Worker ${process.pid} started`);
   }
 /* ----------------------------------- --- ---------------------------------- */
+
+
+
+
+// server.listen(port, async () => {
+//     try {
+//         let existUser = await User.findOne({ where: { email: "reza@gmail.com" } })
+//         if (!existUser) {
+//             const hash = await hashPassword("password")
+//             await User.create({ email: "reza@gmail.com", password: hash })
+//         }
+//     } catch (error) {
+//         console.log(error)
+//     }
+//     console.log(`[+] server started at: ${appConfigs.APP_PROTOCOL}://${appConfigs.APP_HOST}:${port}`)
+// })

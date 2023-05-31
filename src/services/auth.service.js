@@ -1,6 +1,5 @@
 const { User } = require('../models')
 const errorResult = require("../messages/error.messages")
-const dao = require('../DAO')
 const { comparePassword } = require('../utils/bcrypt.utils')
 const { signToken } = require("../utils/jwt.utils")
 
@@ -8,6 +7,7 @@ const { signToken } = require("../utils/jwt.utils")
 exports.AuthService = class {
     static async login_service(dto) {
         const user = await User.findOne({ where: { email: dto.email } })
+        
         if (!user) {
             errorResult.notFound("User not found!")
         }

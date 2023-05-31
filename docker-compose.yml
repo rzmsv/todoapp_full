@@ -55,21 +55,7 @@ services:
       - ./:/todo-service
     ports:
       - 3001:3001
-  # --------------------------------- Swagger -------------------------------- #
-  swagger-ui:
-    image: swaggerapi/swagger-ui
-    container_name: swagger_ui_container
-    ports:
-      - "80:8080"
-    volumes:
-      - ./src/api/v1/doc/swagger/:/usr/share/nginx/html/doc
-    links:
-      - todo
-    environment:
-      API_URL: doc/swagger/authmanagement.yaml
-      # URLS: "[
-      #   { url: \"./authmanagement.yml\", name: \"authManagment\" },
-      #   ]"
+ 
 
 networks:
   todo-service:
