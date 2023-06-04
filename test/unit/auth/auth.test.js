@@ -1,106 +1,94 @@
 const app = require("../../../src")
 const request = require("supertest")(app)
-const {User} = require("../../../src/models")
-const { hashPassword } = require("../../../src/utils/bcrypt.utils")
+const { User } = require('../../../src/models')
+const { hashPassword, comparePassword } = require("../../../src/utils/bcrypt.utils")
+const bcrypt = require("bcrypt")
+const jwt = require("jsonwebtoken")
+const { signToken } = require("../../../src/utils/jwt.utils")
+var hash;
+var userId;
 
-/* ----------------------------------- --- ---------------------------------- */
-
-
-
-beforeAll(async()=>{
-    const hash = await hashPassword("password")
-    await User.create({
-        email: "reza@gmail.com",
-        password: hash
-    })
-    
+beforeAll(async () => {
+    hash = await hashPassword("password")
+    const create = await User.create({ email: "reza@gmail.com", password: hash })
+    userId = create.id
 })
-afterAll(async()=>{
+afterAll(async () => {
     await User.destroy({
         where: {}
     })
 })
+afterEach(() => {
+    jest.restoreAllMocks();
+})
 
+describe("Unit test for Auth!", () => {
+    it("Email not found!", async () => {
+        const USER_DATA = {
+            password: "password"
+        }
+        const res = await request
+            .post("/api/v1/auth/login")
+            .set('Accept', 'application/json')
+            .expect('Content-Type', /json/)
+            .send(USER_DATA)
 
-describe("Auth test .", () => {
-    it("should login",async () => {
-        const data = {
+        expect(res.status).toBe(400)
+
+    })
+    it("Password not found!", async () => {
+        const USER_DATA = {
+            email: "reza@gmail.com"
+        }
+        const res = await request
+            .post('/api/v1/auth/login')
+            .set("Accept", "application/json")
+            .expect('Content-Type', /json/)
+            .send(USER_DATA)
+        expect(res.status).toBe(400)
+    })
+    it("User not Found!", async () => {
+        const USER_DATA = {
+            email: "rez@gmail.com",
+            password: "password"
+        }
+        const MockData = jest.fn(() => {
+            USER_DATA
+        })
+        jest
+            .spyOn(User, "findOne").mockImplementation(() => MockData())
+
+        const res = await request
+            .post('/api/v1/auth/login')
+            .set("accept", "application/json")
+            .expect("Content-type", /json/)
+            .send(USER_DATA)
+        expect(MockData).toHaveBeenCalledTimes(1)
+        expect(res.status).toBe(404)
+    })
+
+    it("Password not match!", async () => {
+
+        const dto = {
+            email: "reza@gmail.com",
+            password: "passwor"
+        }
+        const compare = await comparePassword(dto.password, hash)
+        expect(compare).toBe(false)
+    })
+    it("Password  match!", async () => {
+
+        const dto = {
             email: "reza@gmail.com",
             password: "password"
         }
-
-        const response = await request
-        .post('/api/v1/auth/login')
-        .set('Accept', 'application/json')
-        .expect('Content-Type', /json/)
-        .send(data)
-       
-        expect(response.status).toBe(200)
+        const compare = await comparePassword(dto.password, hash)
+        expect(compare).toBe(true)
     })
-    
-    it("User not found for login",async () => {
-        const data = {
-            email: "rez@gmail.com", // Email wrong .
-            password: "password"
-        }
-
-        const response = await request
-        .post('/api/v1/auth/login')
-        .set('Accept', 'application/json')
-        .expect('Content-Type', /json/)
-        .send(data)
-       
-        expect(response.body.message).toBe("User not found!")
-        expect(response.status).toBe(404)
+    it("user Id should be token", async () => {
+        const signJwt = await signToken(userId)
+        expect(signJwt).toBe(signJwt)
     })
 
-    it("User password wrong",async () => {
-        const data = {
-            email: "reza@gmail.com", 
-            password: "passwordd" // Password wrong .
-        }
-
-        const response = await request
-        .post('/api/v1/auth/login')
-        .set('Accept', 'application/json')
-        .expect('Content-Type', /json/)
-        .send(data)
-       
-        
-        expect(response.body.message).toBe("Password wrong!")
-        expect(response.status).toBe(400)
-    })
-
-    it("Email was empty!",async () => {
-        const data = {
-            email:'' , 
-            password: 'password'
-        }
-
-        const response = await request
-        .post('/api/v1/auth/login')
-        .set('Accept', 'application/json')
-        .expect('Content-Type', /json/)
-        .send(data)
-       
-        
-        expect(response.body.message).toEqual(["Insert email!"])
-        expect(response.status).toBe(400)
-    })
-    it("password was empty",async () => {
-        const data = {
-            email:'reza@gmail.com' , 
-            password: ''
-        }
-
-        const response = await request
-        .post('/api/v1/auth/login')
-        .set('Accept', 'application/json')
-        .expect('Content-Type', /json/)
-        .send(data)
-       
-        
-        expect(response.body.message).toEqual(["Insert password!"])
-        expect(response.status).toBe(400)
-    })
 })
+

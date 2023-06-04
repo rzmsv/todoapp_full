@@ -1,8 +1,8 @@
 const { BaseController } = require("./baseController.helper")
-exports.asyncHandler = fn => async (req,res,next)=>{
+exports.asyncHandler = fn => async (req, res, next) => {
     try {
-        await fn(req,res,next)
+        await fn(req, res, next)
     } catch (error) {
-        BaseController.fail(res, error)
+        return BaseController.fail(res, error)
     }
 } 
