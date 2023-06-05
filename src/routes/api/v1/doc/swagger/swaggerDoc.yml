@@ -2,11 +2,22 @@ paths:
   /api/v1/auth/login:
     post:
       summary: Login API for app
+      tags:
+        - Login
       parameters:
         - name: body
           in: body
-          default: { "email": "reza@gmail.com", "password": "dsa" }
           required: true
+          schema:
+            type: object
+            properties:
+              email:
+                type: string
+              password:
+                type: string
+            example:
+              email: "reza@gmail.com"
+              password: "password"
 
       responses:
         200:
