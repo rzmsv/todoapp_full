@@ -1,0 +1,19 @@
+paths:
+  /api/v1/auth/login:
+    post:
+      summary: Login API for app
+      parameters:
+        - name: body
+          in: body
+          default: { "email": "reza@gmail.com", "password": "dsa" }
+          required: true
+
+      responses:
+        200:
+          description: "- Success"
+        400:
+          summary: "Bad Request"
+          description: "- Email field was empty!\n- Password field was empty!\n Password was wrong!"
+        404:
+          summary: "Not Found"
+          description: "- User not found!"

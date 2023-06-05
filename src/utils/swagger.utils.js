@@ -1,34 +1,37 @@
 const swaggerJSDoc = require("swagger-jsdoc")
 
-class SwaggerDoc{
+class SwaggerDoc {
     static _instanceCache
 
-    static instance (){
-        if (this._instanceCache == null){
+    static instance() {
+        if (this._instanceCache == null) {
             this._instanceCache = new SwaggerDoc()
-            
+
         }
         return this._instanceCache
     }
-    
-    swaggerV1 = ()=>{
-        const options ={
-            definition:{
-                openapi: "3.0.0",
+
+    swaggerV1 = () => {
+        const options = {
+            definition: {
+                swagger: "2.0",
                 info: {
                     title: "Library API",
                     version: "1.0.0",
                     description: "App apis."
                 },
-                servers:[{
+                tags: [{
+                    name: "Auth operations"
+                }],
+                servers: [{
                     url: "http://localhost:3001",
                 }],
             },
-            apis:["../routes/*.js"]
+            apis: ["./src/routes/api/v1/doc/swagger/swaggerDoc.yml"]
         }
         return swaggerJSDoc(options)
     }
 
 }
 
-module.exports= {SwaggerDoc}
+module.exports = { SwaggerDoc }
